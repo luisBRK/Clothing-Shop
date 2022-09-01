@@ -5,8 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgb(30, 31, 32);
-  margin: 0 7.5px 15px;
+  // border: 1px solid rgb(30, 31, 32);
   overflow: hidden;
 
   &:hover {
@@ -20,20 +19,13 @@
     & .category-body-container {
       opacity: 0.9;
       transition: opacity 0.3s cubic-bezier(0.25, 0.5, 0.5, 1);
+      border: 1px solid rgb(30, 31, 32);
     }
   }
 
   &.large {
     height: 380px;
   }
-
-  // &:first-child {
-  //   // margin-right: 7.5px;
-  // }
-
-  // &:last-child {
-  //   // margin-left: 75px;
-  // }
 
   .background-image {
     width: 100%;
@@ -49,21 +41,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgb(30, 31, 32);
+    border: 1px solid transparent;
     background-color: white;
     opacity: 0.7;
     position: absolute;
 
     h2 {
-      font-weight: bold;
+      font-weight: 700;
       margin: 0 6px 0;
       font-size: 22px;
       color: #4a4a4a;
     }
 
     p {
-      font-weight: lighter;
+      font-weight: 400;
       font-size: 16px;
+      color: #3b3b3b;
     }
   }
 }
