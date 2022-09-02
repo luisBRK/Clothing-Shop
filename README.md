@@ -14,6 +14,11 @@ FrontEnd REACT
     │  ├─ components/     
     │  │  ├─ directory/      
     │  │  └─ category-item/   
+    │  ├─ routes/       
+    │  │  ├─ home/    
+    │  │  ├─ navigation/    
+    │  │  └─ sign-in/   
+    │  ├─ utils          
     │  ├─ App.js          
     │  ├─ index.js        
     │  └─ ...
