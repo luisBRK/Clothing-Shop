@@ -2,9 +2,10 @@ import { initializeApp } from "firebase/app";
 
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
@@ -27,13 +28,17 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
+// set auth
 export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
-
 export const DB = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+
+// create user model in firebase when sign first time
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
+  if (!userAuth) return;
+
   const userDocRef = doc(DB, "users", userAuth.uid);
 
   const userSnapShot = await getDoc(userDocRef);
@@ -47,6 +52,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("Error creating the user", error.message);
@@ -54,8 +60,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
 
   return userDocRef;
-  // if user data exists
-  // create / set the document with the data from userAuth in my collection
+};
 
-  // if user data does not exists
+// create user by signup with his data
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

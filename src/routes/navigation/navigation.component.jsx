@@ -2,6 +2,9 @@ import { Fragment } from "react";
 
 import { Outlet, Link } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 
 import "./navigation.style.scss";
@@ -26,6 +29,8 @@ const Navigation = () => {
       </div>
 
       <Outlet />
+
+      <ToastContainer />
     </Fragment>
   );
 };
