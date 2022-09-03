@@ -1,5 +1,21 @@
 .sign-up-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
+
+  .title {
+    h2 {
+      margin-bottom: 8px;
+    }
+    span {
+      font-size: 15px;
+      color: rgb(63, 63, 63);
+    }
+  }
+
+  .formulary {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
