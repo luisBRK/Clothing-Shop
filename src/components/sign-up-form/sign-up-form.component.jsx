@@ -60,9 +60,8 @@ const SignUpForm = () => {
       }
     } finally {
       setSpinnerSignup(false);
+      resetForm();
     }
-
-    resetForm();
   };
 
   return (
@@ -116,8 +115,7 @@ const SignUpForm = () => {
             value: confirmPassword,
           }}
         />
-
-        <Button type={"submit"}>Sign Up</Button>
+        {!spinnerSignup && <Button type={"submit"}>Sign Up</Button>}
       </form>
 
       {spinnerSignup && <Spinner />}

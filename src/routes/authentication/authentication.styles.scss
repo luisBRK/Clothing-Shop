@@ -1,16 +1,18 @@
-.sign-in-container {
+.authentication-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   gap: 7rem;
 
+  width: 120rem;
+  max-width: 95%;
+  // margin: 0 auto;
+
+  margin: 2rem auto;
+
   @media (min-width: 780px) {
     gap: 0;
     flex-direction: row;
   }
-
-  width: 120rem;
-  max-width: 95%;
-  margin: 0 auto;
 }
