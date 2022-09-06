@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
-
 import { ToastAlertError, ToastAlertSuccess } from "../toast-alert/toast-alert.component";
 
 import FormInput from "../form-input/form-input.component";
@@ -20,8 +19,9 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [spinnerSignup, setSpinnerSignup] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-
   const { displayName, email, password, confirmPassword } = formFields;
+
+  // CONTEXT
 
   // change input values
   const handleChange = (event) => {
@@ -46,10 +46,14 @@ const SignUpForm = () => {
 
     try {
       setSpinnerSignup(true);
+
+      // promise
       const response = await createAuthUserWithEmailAndPassword(email, password);
       const { user } = response;
 
+      // document
       const userCreated = await createUserDocumentFromAuth(user, { displayName: displayName });
+
       if (userCreated) ToastAlertSuccess("Registration completed successfully");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

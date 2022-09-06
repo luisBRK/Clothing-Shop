@@ -9,9 +9,8 @@ import {
 import "./sign-in-form.styles.scss";
 
 import Button from "../button/button.component";
-import FormInput from "../form-input/form-input.component";
 import { ToastAlertError } from "../toast-alert/toast-alert.component";
-import { errorPrefix } from "@firebase/util";
+import FormInput from "../form-input/form-input.component";
 
 const defaultFormFields = {
   email: "",
@@ -20,15 +19,11 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-
   const { email, password } = formFields;
 
   // google login
-  const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
-    const { user } = response;
-
-    await createUserDocumentFromAuth(user);
+  const signInWithGoogle = async () => {
+    await signInWithGooglePopup();
   };
 
   // change input values
@@ -48,12 +43,11 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthWithEmailAndPassword(email, password);
-      console.log(response);
+      // const response =
+      await signInAuthWithEmailAndPassword(email, password);
+      // const { user } = response;
     } catch (error) {
-      console.log("error MESSAGE", error.message);
-
-      switch (errorPrefix.code) {
+      switch (error.code) {
         case "auth/user-not-found":
           ToastAlertError("This user is not registered");
           break;
@@ -101,7 +95,7 @@ const SignInForm = () => {
         <div className="buttons-container">
           <Button type={"submit"}>Sign in</Button>
 
-          <Button type={"button"} buttonType="google" onClick={logGoogleUser}>
+          <Button type={"button"} buttonType="google" onClick={signInWithGoogle}>
             Sign in with Google
           </Button>
         </div>

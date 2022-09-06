@@ -1,15 +1,18 @@
-import { Fragment } from "react";
-
+import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+
+import { UserContext } from "../../context/user.context";
+import "./navigation.style.scss";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 
-import "./navigation.style.scss";
-
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <Fragment>
       <div className="navigation">
@@ -22,9 +25,15 @@ const Navigation = () => {
             Shop
           </Link>
 
-          <Link className="nav-link" to={"/auth"}>
-            Sign in
-          </Link>
+          {currentUser ? (
+            <span className="nav-link" onClick={signOutUser}>
+              Sign out
+            </span>
+          ) : (
+            <Link className="nav-link" to={"/auth"}>
+              Sign in
+            </Link>
+          )}
         </div>
       </div>
 
