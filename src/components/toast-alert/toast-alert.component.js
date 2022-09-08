@@ -23,3 +23,15 @@ export const ToastAlertSuccess = (message) => {
     progress: undefined,
   });
 };
+
+export const ToastAlertSuccessLeft = (message) => {
+  toast.success(message, {
+    position: "top-left",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
