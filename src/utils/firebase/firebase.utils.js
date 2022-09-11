@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, collection, writeBatch, query, getDocs } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -37,6 +37,22 @@ export const DB = getFirestore();
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+
+// Add a json to firebase
+//   addCollectionAndDocuments("categories", SHOP_DATA);
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field = "title") => {
+  const collectionReference = collection(DB, collectionKey);
+  const batch = writeBatch(DB);
+
+  objectsToAdd.forEach((object) => {
+    const documentReference = doc(collectionReference, object[field].toLowerCase());
+
+    batch.set(documentReference, object);
+  });
+
+  await batch.commit();
+  console.log("DONE!");
+};
 
 // create user model in firebase when sign first time
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
@@ -84,3 +100,24 @@ export const signOutUser = async () => signOut(auth);
 
 // auth state change
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+// get categories
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionReference = collection(DB, "categories");
+  const queryFb = query(collectionReference);
+
+  const querySnapshot = await getDocs(queryFb);
+  // console.log("querySnapshot =>", querySnapshot);
+
+  // HASHTABLE
+  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
+    // console.log("docsnaphost =>", docSnapshot);
+    const { title, items } = docSnapshot.data();
+    accumulator[title.toLowerCase()] = items;
+
+    return accumulator;
+  }, {});
+
+  return categoryMap;
+};

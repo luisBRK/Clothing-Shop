@@ -40,8 +40,10 @@ const CheckoutItem = ({ cartItem }) => {
         </span>
       </div>
 
-      <div className="remove-button" onClick={clearItemHandler}>
-        &#10005;
+      <div className="remove-item">
+        <button type="button" className="remove-button" onClick={clearItemHandler}>
+          &#10005;
+        </button>
       </div>
     </div>
   );
