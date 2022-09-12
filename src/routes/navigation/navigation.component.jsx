@@ -4,7 +4,7 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./navigation.style.scss";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.styles";
 
 import { UserContext } from "../../context/user.context";
 import { CartContext } from "../../context/cart.context";
@@ -20,29 +20,27 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to={"/"}>
+      <NavigationContainer>
+        <LogoContainer to={"/"}>
           <CrownLogo className="logo" />
-        </Link>
+        </LogoContainer>
 
-        <div className="nav-links-container">
-          <Link className="nav-link" to={"/shop"}>
-            Shop
-          </Link>
+        <NavLinks>
+          <NavLink to={"/shop"}>Shop</NavLink>
 
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as="span" onClick={signOutUser}>
               Sign out
-            </span>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to={"/auth"}>
-              Sign in
-            </Link>
+            <NavLink to={"/auth"}>Sign in</NavLink>
           )}
+
           <CartIcon />
-        </div>
+        </NavLinks>
+
         {isCartOpen && <CartDropdown />}
-      </div>
+      </NavigationContainer>
 
       <Outlet />
 

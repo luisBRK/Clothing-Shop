@@ -1,9 +1,9 @@
 import { useContext } from "react";
 
-import "./product-card.styles.scss";
+import { ProductCardContainer, Image, Footer, Name, Price } from "./product-card.styles";
 
 import { CartContext } from "../../context/cart.context";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPES_CLASSES } from "../button/button.component";
 import { ToastAlertSuccessLeft } from "../toast-alert/toast-alert.component";
 
 const ProductCard = ({ product }) => {
@@ -17,18 +17,18 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="product-card-container">
-      <img src={imageUrl} alt={`img ${name}`} />
+    <ProductCardContainer>
+      <Image src={imageUrl} alt={`img ${name}`} />
 
-      <div className="footer">
-        <p className="name">{name}</p>
-        <p className="price">{price}$</p>
-      </div>
+      <Footer>
+        <Name>{name}</Name>
+        <Price>{price}$</Price>
+      </Footer>
 
-      <Button onClick={addProductToCart} buttonType={"inverted"}>
+      <Button onClick={addProductToCart} buttonType={BUTTON_TYPES_CLASSES.inverted}>
         Add to cart
       </Button>
-    </div>
+    </ProductCardContainer>
   );
 };
 

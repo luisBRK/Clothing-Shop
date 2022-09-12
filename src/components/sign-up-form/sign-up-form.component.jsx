@@ -3,11 +3,11 @@ import { useState } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import { ToastAlertError, ToastAlertSuccess } from "../toast-alert/toast-alert.component";
 
+import { SignUpContainer, Title, Formulary } from "./sign-up-form.styles";
+
 import FormInput from "../form-input/form-input.component";
 import Spinner from "../spinner/spinner.component";
 import Button from "../button/button.component";
-
-import "./sign-up-form.styles.scss";
 
 const defaultFormFields = {
   displayName: "",
@@ -69,13 +69,13 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
-      <div className="title">
+    <SignUpContainer>
+      <Title>
         <h2>Don't have an account?</h2>
         <span>Signup with your email and password</span>
-      </div>
+      </Title>
 
-      <form onSubmit={handleSubmit} className="formulary">
+      <Formulary onSubmit={handleSubmit}>
         <FormInput
           label="Display name"
           inputOptions={{
@@ -120,10 +120,10 @@ const SignUpForm = () => {
           }}
         />
         {!spinnerSignup && <Button type={"submit"}>Sign Up</Button>}
-      </form>
+      </Formulary>
 
       {spinnerSignup && <Spinner />}
-    </div>
+    </SignUpContainer>
   );
 };
 

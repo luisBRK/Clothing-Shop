@@ -1,4 +1,6 @@
-.authentication-container {
+import styled from "styled-components";
+
+export const AuthenticationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,4 +17,4 @@
     gap: 0;
     flex-direction: row;
   }
-}
+`;

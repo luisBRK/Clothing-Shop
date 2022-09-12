@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductCard from "../../components/product-card/product-card.component";
-import SpinnerCol from "../../components/spinner-col/spinner-col.component";
 
 import { CategoriesContext } from "../../context/categories.context";
 
-import "./category.styles.scss";
+import { CategoryContainer, Title, ProductsGallery } from "./category.styles";
+
+import ProductCard from "../../components/product-card/product-card.component";
+import SpinnerCol from "../../components/spinner-col/spinner-col.component";
 
 const Category = () => {
   const { categoriesMap, chargingCategories } = useContext(CategoriesContext);
@@ -20,9 +21,13 @@ const Category = () => {
   return chargingCategories ? (
     <SpinnerCol />
   ) : (
-    <div className="category-container">
-      {products && products.map((product) => <ProductCard key={product.id} product={product} />)}
-    </div>
+    <CategoryContainer>
+      <Title>{category}</Title>
+
+      <ProductsGallery>
+        {products && products.map((product) => <ProductCard key={product.id} product={product} />)}
+      </ProductsGallery>
+    </CategoryContainer>
   );
 };
 

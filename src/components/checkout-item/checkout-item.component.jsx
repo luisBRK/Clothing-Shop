@@ -2,7 +2,16 @@ import { useContext } from "react";
 
 import { CartContext } from "../../context/cart.context";
 
-import "./checkout-item.styles.scss";
+import {
+  CheckoutItemContainer,
+  ImageItem,
+  Details,
+  SpanDetail,
+  ButtonActionItem,
+  RemoveItemContainer,
+  RemoveButton,
+} from "./checkout-item.styles";
+
 import { ReactComponent as AddItemIcon } from "../../assets/plus-icon.svg";
 import { ReactComponent as RemoveItemIcon } from "../../assets/minus-icon.svg";
 
@@ -16,36 +25,36 @@ const CheckoutItem = ({ cartItem }) => {
   const clearItemHandler = () => clearItemFromContext(cartItem);
 
   return (
-    <div className="checkout-item-container">
-      <img src={imageUrl} alt={name} />
+    <CheckoutItemContainer>
+      <ImageItem src={imageUrl} alt={name} />
 
-      <div className="item-details">
-        <span>
+      <Details>
+        <SpanDetail>
           Peoduct Name: <p>{name}</p>
-        </span>
+        </SpanDetail>
 
-        <span className="quantity">
+        <SpanDetail className="quantity">
           Quantity:
-          <div className="button-item" onClick={removeItemHandler}>
+          <ButtonActionItem onClick={removeItemHandler}>
             <RemoveItemIcon />
-          </div>
+          </ButtonActionItem>
           <p>{quantity}</p>
-          <div className="button-item" onClick={addItemHandler}>
+          <ButtonActionItem onClick={addItemHandler}>
             <AddItemIcon />
-          </div>
-        </span>
+          </ButtonActionItem>
+        </SpanDetail>
 
-        <span>
+        <SpanDetail>
           Total price:<p>${price}</p>
-        </span>
-      </div>
+        </SpanDetail>
+      </Details>
 
-      <div className="remove-item">
-        <button type="button" className="remove-button" onClick={clearItemHandler}>
+      <RemoveItemContainer>
+        <RemoveButton type="button" onClick={clearItemHandler}>
           &#10005;
-        </button>
-      </div>
-    </div>
+        </RemoveButton>
+      </RemoveItemContainer>
+    </CheckoutItemContainer>
   );
 };
 
