@@ -12,10 +12,13 @@ export const CategoriesProvider = ({ children }) => {
   useEffect(() => {
     const getCategoriesMap = async () => {
       setChargingCategories(true);
+
       const categoryMap = await getCategoriesAndDocuments();
       setCategoriesMap(categoryMap);
+
       setChargingCategories(false);
     };
+
     getCategoriesMap();
   }, []);
 
