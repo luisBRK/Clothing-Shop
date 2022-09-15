@@ -13,14 +13,23 @@ import {
 
 import { getFirestore, doc, setDoc, getDoc, collection, writeBatch, query, getDocs } from "firebase/firestore";
 
+const {
+  REACT_APP_APPI_KEY,
+  REACT_APP_AUTH_DOMAIN,
+  REACT_APP_PROJECT_ID,
+  REACT_APP_STORAGE_BUCKET,
+  REACT_APP_MESSAGING_SENDER_ID,
+  REACT_APP_APP_ID,
+} = process.env;
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBmi-IufVwLe7WaAhb45wGYLO6aRVeMb3E",
-  authDomain: "clothing-shop-5977e.firebaseapp.com",
-  projectId: "clothing-shop-5977e",
-  storageBucket: "clothing-shop-5977e.appspot.com",
-  messagingSenderId: "591592967726",
-  appId: "1:591592967726:web:f0215deb8b0a274c4399bf",
+  apiKey: REACT_APP_APPI_KEY,
+  authDomain: REACT_APP_AUTH_DOMAIN,
+  projectId: REACT_APP_PROJECT_ID,
+  storageBucket: REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
+  appId: REACT_APP_APP_ID,
 };
 
 // Initialize Firebase
