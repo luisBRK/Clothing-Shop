@@ -47,9 +47,11 @@ const SignInForm = () => {
         case "auth/user-not-found":
           ToastAlertError("This user is not registered");
           break;
+
         case "auth/wrong-password":
           ToastAlertError("Email or password invalid");
           break;
+          
         default:
           console.log(error.code);
       }
