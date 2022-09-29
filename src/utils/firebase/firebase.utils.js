@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 
 import {
   getAuth,
@@ -9,9 +9,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-} from "firebase/auth";
+} from 'firebase/auth';
 
-import { getFirestore, doc, setDoc, getDoc, collection, writeBatch, query, getDocs } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, collection, writeBatch, query, getDocs } from 'firebase/firestore';
 
 const {
   REACT_APP_APPI_KEY,
@@ -37,7 +37,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 // set auth
@@ -49,7 +49,7 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 // Add a json to firebase
 //   addCollectionAndDocuments("categories", SHOP_DATA);
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field = "title") => {
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field = 'title') => {
   const collectionReference = collection(DB, collectionKey);
   const batch = writeBatch(DB);
 
@@ -60,14 +60,14 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, fie
   });
 
   await batch.commit();
-  console.log("DONE!");
+  console.log('DONE!');
 };
 
 // create user model in firebase when sign first time
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
 
-  const userDocRef = doc(DB, "users", userAuth.uid);
+  const userDocRef = doc(DB, 'users', userAuth.uid);
 
   const userSnapShot = await getDoc(userDocRef);
 
@@ -83,7 +83,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("Error creating the user", error.message);
+      console.log('Error creating the user', error.message);
     }
   }
 
@@ -113,20 +113,12 @@ export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth,
 // get categories
 
 export const getCategoriesAndDocuments = async () => {
-  const collectionReference = collection(DB, "categories");
+  const collectionReference = collection(DB, 'categories');
   const queryFb = query(collectionReference);
 
   const querySnapshot = await getDocs(queryFb);
   // console.log("querySnapshot =>", querySnapshot);
 
   // HASHTABLE
-  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
-    // console.log("docsnaphost =>", docSnapshot);
-    const { title, items } = docSnapshot.data();
-    accumulator[title.toLowerCase()] = items;
-
-    return accumulator;
-  }, {});
-
-  return categoryMap;
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };

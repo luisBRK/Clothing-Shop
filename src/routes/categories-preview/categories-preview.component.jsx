@@ -1,13 +1,15 @@
-import { useContext } from "react";
-import { CategoriesContext } from "../../context/categories.context";
+import { useSelector } from 'react-redux';
 
-import CategoryPreview from "../../components/category-preview/category-preview.component";
+import { selectCategoriesMap, selectChargingCategories } from '../../store/categories/category.selector';
 
-import { CategoriesPreviewContainer } from "./categories-preview.styles";
-import SpinnerCol from "../../components/spinner-col/spinner-col.component";
+import CategoryPreview from '../../components/category-preview/category-preview.component';
+
+import { CategoriesPreviewContainer } from './categories-preview.styles';
+import SpinnerCol from '../../components/spinner-col/spinner-col.component';
 
 const CategoriesPreview = () => {
-  const { categoriesMap, chargingCategories } = useContext(CategoriesContext);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  const chargingCategories = useSelector(selectChargingCategories);
 
   return chargingCategories ? (
     <SpinnerCol />
@@ -16,7 +18,13 @@ const CategoriesPreview = () => {
       {Object.keys(categoriesMap).map((title) => {
         const products = categoriesMap[title];
 
-        return <CategoryPreview key={title} title={title} products={products} />;
+        return (
+          <CategoryPreview
+            key={title}
+            title={title}
+            products={products}
+          />
+        );
       })}
     </CategoriesPreviewContainer>
   );
