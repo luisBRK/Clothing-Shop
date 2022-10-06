@@ -7,7 +7,7 @@ const loggerMiddleware = (store) => (next) => (action) => {
     return next(action);
   }
 
-  console.log('STORE => | ', store);
+  // console.log('MIDDLEWARE | Store => | ', store);
   console.log('MIDDLEWARE | Action Type: ', action.type);
   console.log('MIDDLEWARE | Payload: ', action.payload);
   console.log('MIDDLEWARE | Current State: ', store.getState());
