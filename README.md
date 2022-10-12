@@ -25,4 +25,4 @@ FrontEnd REACT
     └─ ...
 
 Link
->>>https://clothing-shop-luis.netlify.app/
+>https://clothing-shop-luis.netlify.app/
